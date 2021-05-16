@@ -1,21 +1,23 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { createStream } from '../../actions';
+import StreamForm from './StreamForm';
 
 class StreamCreate extends React.Component {
-  renderInput({ input }) {
-    return <input {...input} />;
+  
+  onSubmit = formValues => {
+    this.props.createStream(formValues);
   }
 
   render() {
     return (
-      <form>
-        <Field name="title" component={this.renderInput} />
-        <Field name="description" component={this.renderInput} />
-      </form>
+      <div>
+        <h3>Create a Stream</h3>
+        <StreamForm onSubmit={this.onSubmit} />
+      </div>
     );
   }
 }
 
-export default reduxForm({
-  form: 'streamCreate'
-})(StreamCreate);
+
+export default connect(null, { createStream })(StreamCreate);
